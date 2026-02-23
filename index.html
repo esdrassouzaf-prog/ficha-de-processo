@@ -161,8 +161,8 @@
 
         .materials-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 12px;
         }
 
         .material-item {
@@ -173,6 +173,7 @@
             border-radius: 10px;
             border: 2px solid #e2e8f0;
             transition: all 0.3s ease;
+            gap: 12px;
         }
 
         .material-item:hover {
@@ -180,15 +181,69 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         }
 
+        /* Checkbox estilizado */
+        .check-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .check-container input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .checkmark {
+            position: relative;
+            height: 24px;
+            width: 24px;
+            background-color: #fff;
+            border: 2px solid #cbd5e0;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .check-container:hover input ~ .checkmark {
+            border-color: #667eea;
+            background-color: #f0f4ff;
+        }
+
+        .check-container input:checked ~ .checkmark {
+            background-color: #48bb78;
+            border-color: #48bb78;
+        }
+
+        .checkmark:after {
+            content: "✓";
+            position: absolute;
+            display: none;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .check-container input:checked ~ .checkmark:after {
+            display: block;
+        }
+
         .material-item label {
             flex: 1;
             font-weight: 500;
             color: #2d3748;
             font-size: 0.95rem;
+            cursor: pointer;
         }
 
-        .material-item input {
-            width: 100px;
+        .material-item input[type="number"] {
+            width: 90px;
             padding: 8px 12px;
             border: 2px solid #e2e8f0;
             border-radius: 6px;
@@ -198,7 +253,7 @@
             transition: all 0.3s ease;
         }
 
-        .material-item input:focus {
+        .material-item input[type="number"]:focus {
             outline: none;
             border-color: #667eea;
             background: #f0f4ff;
@@ -324,17 +379,17 @@
             transform: translateX(0);
         }
 
-        /* PRINT STYLES - Otimizado para 1 página */
+        /* PRINT STYLES - Otimizado para 1 página com checkboxes */
         @media print {
             @page {
                 size: A4 portrait;
-                margin: 10mm;
+                margin: 8mm;
             }
 
             body {
                 background: white;
                 padding: 0;
-                font-size: 9pt;
+                font-size: 8pt;
             }
 
             .container {
@@ -346,19 +401,18 @@
             .header {
                 background: #1e3c72 !important;
                 color: white !important;
-                padding: 10px !important;
+                padding: 8px !important;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
 
             .header h1 {
-                font-size: 16pt;
-                margin-bottom: 2px;
+                font-size: 14pt;
+                margin-bottom: 0;
             }
 
             .header p {
-                font-size: 9pt;
-                display: none; /* Remove subtítulo para economizar espaço */
+                display: none;
             }
 
             .no-print {
@@ -366,40 +420,38 @@
             }
 
             .form-section {
-                padding: 10px;
+                padding: 8px;
             }
 
-            /* Cabeçalho compacto com todas as infos */
+            /* Cabeçalho compacto */
             .print-header-compact {
                 display: grid !important;
                 grid-template-columns: repeat(4, 1fr);
-                gap: 5px;
-                margin-bottom: 10px;
-                padding: 8px;
+                gap: 4px;
+                margin-bottom: 8px;
+                padding: 6px;
                 background: #f0f4ff;
                 border: 1px solid #cbd5e0;
-                border-radius: 5px;
-                font-size: 8pt;
+                border-radius: 4px;
+                font-size: 7.5pt;
             }
 
             .print-header-compact div {
-                padding: 2px 0;
+                padding: 1px 0;
             }
 
             .print-header-compact strong {
                 color: #1e3c72;
             }
 
-            /* Esconde seções originais na impressão */
-            .form-grid,
-            .equipment-grid {
+            .form-grid, .equipment-grid {
                 display: none !important;
             }
 
             .section-title {
-                font-size: 10pt;
-                margin-bottom: 8px;
-                padding-bottom: 4px;
+                font-size: 9pt;
+                margin-bottom: 6px;
+                padding-bottom: 3px;
                 border-bottom: 1px solid #333;
                 color: #000;
             }
@@ -408,36 +460,60 @@
                 display: none;
             }
 
-            /* Materiais em 3 colunas compactas */
+            /* Grid de materiais em 2 colunas para caber checkbox */
             .materials-section {
                 background: transparent;
                 padding: 0;
-                margin-bottom: 10px;
+                margin-bottom: 8px;
             }
 
             .materials-grid {
                 display: grid !important;
-                grid-template-columns: repeat(3, 1fr) !important;
-                gap: 2px !important;
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 3px !important;
             }
 
             .material-item {
                 display: none !important;
-                padding: 3px 5px !important;
-                border: 1px solid #ddd !important;
+                padding: 4px 6px !important;
+                border: 1px solid #999 !important;
                 border-radius: 0 !important;
-                font-size: 8pt;
+                font-size: 7.5pt;
                 margin-bottom: 0 !important;
                 background: white !important;
+                gap: 6px !important;
+                align-items: center !important;
             }
 
             .material-item.has-value {
                 display: flex !important;
-                justify-content: space-between;
+            }
+
+            /* Checkbox na impressão - visível e marcável */
+            .check-container {
+                display: block !important;
+                position: relative;
+                width: 16px;
+                height: 16px;
+                flex-shrink: 0;
+            }
+
+            .check-container input[type="checkbox"] {
+                position: absolute;
+                opacity: 1;
+                width: 16px;
+                height: 16px;
+                cursor: pointer;
+                margin: 0;
+            }
+
+            /* Esconde o checkmark estilizado na impressão, mostra o checkbox nativo */
+            .checkmark {
+                display: none !important;
             }
 
             .material-item label {
-                font-size: 8pt;
+                font-size: 7.5pt;
                 font-weight: 500;
                 color: #000;
                 flex: 1;
@@ -446,83 +522,77 @@
                 text-overflow: ellipsis;
             }
 
-            .material-item input {
+            .material-item input[type="number"] {
                 border: none !important;
                 background: transparent !important;
                 padding: 0 !important;
-                width: 50px !important;
-                font-size: 8pt !important;
+                width: 45px !important;
+                font-size: 7.5pt !important;
                 font-weight: 700 !important;
                 color: #000 !important;
                 text-align: right !important;
+                border-bottom: 1px solid #999 !important;
             }
 
             /* Total compacto */
             .total-section {
                 background: #1e3c72 !important;
                 color: white !important;
-                padding: 8px !important;
-                margin: 10px 0 !important;
-                border-radius: 5px !important;
+                padding: 6px !important;
+                margin: 8px 0 !important;
+                border-radius: 4px !important;
                 position: static !important;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
 
             .total-label {
-                font-size: 8pt;
+                font-size: 7pt;
                 margin-bottom: 0;
             }
 
             .total-value {
-                font-size: 16pt;
+                font-size: 14pt;
             }
 
-            /* Observações compactas */
+            /* Observações */
             .observations {
-                margin-bottom: 10px;
+                margin-bottom: 8px;
             }
 
             .observations textarea {
-                border: 1px solid #ddd;
-                min-height: 40px;
-                font-size: 8pt;
-                padding: 5px;
+                border: 1px solid #999;
+                min-height: 30px;
+                font-size: 7.5pt;
+                padding: 4px;
             }
 
-            /* Assinaturas no final */
+            /* Assinaturas */
             .signatures {
                 display: grid !important;
                 grid-template-columns: repeat(3, 1fr);
-                gap: 20px;
-                margin-top: 15px;
-                padding-top: 10px;
-                border-top: 1px solid #ddd;
+                gap: 15px;
+                margin-top: 10px;
+                padding-top: 8px;
+                border-top: 1px solid #333;
             }
 
             .signature-line {
                 text-align: center;
-                font-size: 8pt;
+                font-size: 7.5pt;
             }
 
             .signature-line div {
                 border-top: 1px solid #000;
-                margin-top: 20px;
+                margin-top: 15px;
                 padding-top: 2px;
             }
 
-            /* Remove elementos desnecessários */
             .formula-summary {
                 display: none !important;
             }
-
-            /* Força quebra de página se necessário - mas tenta evitar */
-            .materials-grid {
-                page-break-inside: avoid;
-            }
         }
 
-        /* Elementos visíveis apenas na impressão */
         .print-only {
             display: none;
         }
@@ -536,6 +606,44 @@
         .hidden {
             display: none !important;
         }
+
+        /* Instruções para o setor de mistura */
+        .instructions {
+            background: #fffaf0;
+            border: 2px solid #ed8936;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .instructions-icon {
+            font-size: 2rem;
+        }
+
+        .instructions-text {
+            flex: 1;
+        }
+
+        .instructions-text h4 {
+            color: #c05621;
+            margin-bottom: 5px;
+            font-size: 1rem;
+        }
+
+        .instructions-text p {
+            color: #744210;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        @media print {
+            .instructions {
+                display: none !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -548,12 +656,19 @@
         </div>
 
         <div class="form-section">
-            <!-- Cabeçalho compacto para impressão -->
-            <div class="print-only print-header-compact" id="printHeaderCompact">
-                <!-- Preenchido via JS -->
+            <!-- Instruções visíveis apenas na tela -->
+            <div class="instructions no-print">
+                <div class="instructions-icon">📋</div>
+                <div class="instructions-text">
+                    <h4>Instruções para o Setor de Mistura:</h4>
+                    <p>Após imprimir, entregue esta ficha ao responsável pela mistura. Cada item deve ser conferido e marcado (✓) após adicionado à mistura. A ficha assinada deve retornar para arquivo.</p>
+                </div>
             </div>
 
-            <!-- Formulário normal (visível apenas na tela) -->
+            <!-- Cabeçalho compacto para impressão -->
+            <div class="print-only print-header-compact" id="printHeaderCompact"></div>
+
+            <!-- Formulário normal -->
             <div class="section-title no-print">Informações da Fórmula</div>
             <div class="form-grid no-print">
                 <div class="form-group">
@@ -627,7 +742,6 @@
                     <label for="moinho">🔧 Nº Moinho</label>
                     <select id="moinho" name="moinho">
                         <option value="">Selecione...</option>
-                        ${Array.from({length: 10}, (_, i) => `<option value="${i+1}">Moinho ${i+1}</option>`).join('')}
                     </select>
                 </div>
 
@@ -635,7 +749,6 @@
                     <label for="extrusora">⚙️ Nº Extrusora</label>
                     <select id="extrusora" name="extrusora">
                         <option value="">Selecione...</option>
-                        ${Array.from({length: 10}, (_, i) => `<option value="${i+1}">Extrusora ${i+1}</option>`).join('')}
                     </select>
                 </div>
 
@@ -643,7 +756,6 @@
                     <label for="misturador">🔄 Nº Misturador</label>
                     <select id="misturador" name="misturador">
                         <option value="">Selecione...</option>
-                        ${Array.from({length: 10}, (_, i) => `<option value="${i+1}">Misturador ${i+1}</option>`).join('')}
                     </select>
                 </div>
             </div>
@@ -651,11 +763,11 @@
             <!-- Total -->
             <div class="total-section">
                 <div class="total-label">Total da Fórmula</div>
-                <div class="total-value"><span id="totalValue">0.00</span> <span style="font-size: 1.5rem;">kg</span></div>
+                <div class="total-value"><span id="totalValue">0,00</span> <span style="font-size: 1.5rem;">kg</span></div>
             </div>
 
-            <!-- Matérias-Primas -->
-            <div class="section-title">Composição da Fórmula</div>
+            <!-- Matérias-Primas com Checkbox -->
+            <div class="section-title">Composição da Fórmula - Checklist</div>
             <div class="materials-section">
                 <div class="materials-grid" id="materialsGrid">
                     <!-- Gerado via JavaScript -->
@@ -665,10 +777,10 @@
             <!-- Observações -->
             <div class="section-title">Observações</div>
             <div class="observations">
-                <textarea id="observacoes" placeholder="Digite aqui observações importantes sobre a fórmula..."></textarea>
+                <textarea id="observacoes" placeholder="Digite aqui observações importantes sobre a fórmula, processo específico, ordem de adição ou qualquer instrução especial para o setor de mistura..."></textarea>
             </div>
 
-            <!-- Assinaturas (visível apenas na impressão) -->
+            <!-- Assinaturas -->
             <div class="print-only signatures">
                 <div class="signature-line">
                     <div>Preparado por</div>
@@ -688,13 +800,12 @@
             <div class="button-group no-print">
                 <button class="btn btn-secondary" onclick="limparFormulario()">🗑️ Limpar</button>
                 <button class="btn btn-success" onclick="salvarFormula()">💾 Salvar</button>
-                <button class="btn btn-primary" onclick="imprimirFormula()">🖨️ Imprimir</button>
+                <button class="btn btn-primary" onclick="imprimirFormula()">🖨️ Imprimir Ficha</button>
             </div>
         </div>
     </div>
 
     <script>
-        // Lista de matérias-primas
         const materiasPrimas = [
             "Resina Poliéster", "Resina Epóxi", "TGIC", "TP105", "TP68",
             "CF50", "TP Benzoina", "TP1830", "TP508", "Irganox 168",
@@ -705,10 +816,8 @@
             "Vermelho RRH", "Vermelho Oxido", "Recuperação"
         ];
 
-        // Inicializar data atual
         document.getElementById('data').valueAsDate = new Date();
 
-        // Preencher selects de equipamentos dinamicamente
         function preencherEquipamentos() {
             ['moinho', 'extrusora', 'misturador'].forEach(tipo => {
                 const select = document.getElementById(tipo);
@@ -719,7 +828,6 @@
             });
         }
 
-        // Gerar campos de matérias-primas
         function gerarCamposMateriasPrimas() {
             const grid = document.getElementById('materialsGrid');
             
@@ -729,6 +837,10 @@
                 div.id = `item-${index}`;
                 
                 div.innerHTML = `
+                    <label class="check-container" title="Marcar quando adicionado">
+                        <input type="checkbox" id="check-${index}" name="check-${index}">
+                        <span class="checkmark"></span>
+                    </label>
                     <label for="mat-${index}" title="${material}">${material}</label>
                     <input 
                         type="number" 
@@ -745,7 +857,6 @@
             });
         }
 
-        // Calcular total
         function calcularTotal() {
             let total = 0;
 
@@ -759,13 +870,14 @@
                     item.classList.add('has-value');
                 } else {
                     item.classList.remove('has-value');
+                    // Desmarca o checkbox se zerar o valor
+                    document.getElementById(`check-${index}`).checked = false;
                 }
             });
 
             document.getElementById('totalValue').textContent = total.toFixed(2).replace('.', ',');
         }
 
-        // Preparar cabeçalho para impressão
         function prepararCabecalhoImpressao() {
             const campos = {
                 'Código': document.getElementById('codigo').value || '-',
@@ -787,11 +899,9 @@
                 .join('');
         }
 
-        // Imprimir
         function imprimirFormula() {
             prepararCabecalhoImpressao();
             
-            // Verifica se há materiais preenchidos
             const temMateriais = Array.from({length: materiasPrimas.length}, (_, i) => {
                 return parseFloat(document.getElementById(`mat-${i}`).value) || 0;
             }).some(v => v > 0);
@@ -804,12 +914,13 @@
             window.print();
         }
 
-        // Limpar formulário
         function limparFormulario() {
             if (confirm('Tem certeza que deseja limpar todos os campos?')) {
                 document.querySelectorAll('input, select, textarea').forEach(field => {
                     if (field.type === 'date') {
                         field.valueAsDate = new Date();
+                    } else if (field.type === 'checkbox') {
+                        field.checked = false;
                     } else {
                         field.value = '';
                     }
@@ -823,7 +934,6 @@
             }
         }
 
-        // Salvar fórmula
         function salvarFormula() {
             const formula = {
                 id: Date.now(),
@@ -851,24 +961,26 @@
             materiasPrimas.forEach((material, index) => {
                 const valor = parseFloat(document.getElementById(`mat-${index}`).value) || 0;
                 if (valor > 0) {
-                    formula.materiais.push({ nome: material, quantidade: valor });
+                    formula.materiais.push({ 
+                        nome: material, 
+                        quantidade: valor,
+                        conferido: document.getElementById(`check-${index}`).checked
+                    });
                 }
             });
 
             const formulas = JSON.parse(localStorage.getItem('formulas') || '[]');
             formulas.push(formula);
-            localStorage.setSetItem('formulas', JSON.stringify(formulas));
+            localStorage.setItem('formulas', JSON.stringify(formulas));
 
             const notif = document.getElementById('notification');
             notif.classList.add('show');
             setTimeout(() => notif.classList.remove('show'), 3000);
         }
 
-        // Inicializar
         preencherEquipamentos();
         gerarCamposMateriasPrimas();
 
-        // Atalho Ctrl+P
         document.addEventListener('keydown', (e) => {
             if (e.ctrlKey && e.key === 'p') {
                 e.preventDefault();
